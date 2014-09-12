@@ -10,6 +10,7 @@ threadWorker = 15
 ACGHost = "acg.sugling.in"
 iPhone5URLPath = '/_uploadfiles/iphone5/640/'
 ReqeustHeaders = {"User-Agent": "ACGArt/4.4.11 CFNetwork/672.1.15 Darwin/14.0.0", "Accept":"*/*"}
+SaveDiskPath = 'D:\\ACGART\\'
 
 def fetchImageList():
 	conn = httplib.HTTPConnection(ACGHost)
@@ -44,11 +45,16 @@ def fetchImageList():
 	print "DonwLoad allImgs is:", len(allImgs)
 	return allImgs
 
+def checkDiskPath():
+	if not os.path.isdir(SaveDiskPath):
+		print SaveDiskPath , "Not Exist"
+		os.mkdir(SaveDiskPath)
+
 
 
 def downjpg(FileName):
 	savePath = FileName;
-	savePath = 'D:\\ACGART\\'+FileName
+	savePath = SaveDiskPath +FileName
 	if os.path.isfile(savePath):
 		print FileName, "Exist"
 	else:
@@ -81,6 +87,7 @@ class MyDownloadThread(threading.Thread):
 if __name__ == '__main__':
 	print "begin...."
 	allImgs = fetchImageList()
+	checkDiskPath()
 	for i in allImgs:
 		myQueue.put(i)
 	print "job myQueue size ", myQueue.qsize()

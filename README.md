@@ -8,3 +8,9 @@ iOS APP Name:ACG ART
 ###Adult only###
 
 I just want to pick the wallpapers on my PC(Of course, it's a excues.)
+
+
+####Next Step####
+
+* Seperate R18 images
+* Seperate images By Girls Name
