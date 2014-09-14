@@ -7,7 +7,6 @@ import Queue
 import platform
 
 myQueue = Queue.Queue(0)
-<<<<<<< HEAD
 threadWorker = 10
 ACGHost = "acg.sugling.in"
 iPhone5URLPath = '/_uploadfiles/iphone5/640/'
@@ -66,13 +65,15 @@ def fetchImageList():
 def checkPlatformAndSavePath():
 	system = platform.system() 
 	global SaveDiskPath
-	if platform == 'Windows':
+	global SaveHImageDiskPath
+	if system == 'Windows':
 		SaveDiskPath = 'D:\\ACGART\\'
 		SaveHImageDiskPath = 'D:\\ACGART\\H\\'
 	else:
 		SaveDiskPath = './ACGART/'
 		SaveHImageDiskPath = './ACGART/H/'
-	print "System: %s,Save images to %s" % (system, SaveDiskPath)
+
+	print "System: %s,Save images to %s, H images to %s" % (system, SaveDiskPath, SaveHImageDiskPath)
 	if not os.path.isdir(SaveDiskPath):
 		print SaveDiskPath , "Not Exist"
 		os.mkdir(SaveDiskPath)
@@ -90,8 +91,10 @@ def downjpg(FileName):
 
 	if isHImage:
 		savePath = SaveHImageDiskPath +FileName
+		print 'H image save path is :', savePath
 	else:
 		savePath = SaveDiskPath +FileName
+		print 'image save path is :', savePath
 
 	if os.path.isfile(savePath):
 		print FileName, "Exist"
@@ -123,4 +126,5 @@ if __name__ == '__main__':
 	print "job myQueue size ", myQueue.qsize()
 	for x in range(threadWorker):
 		MyDownloadThread(myQueue).start()
+	# checkPlatformAndSavePath()
 
