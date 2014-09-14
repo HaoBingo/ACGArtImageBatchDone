@@ -12,5 +12,7 @@ I just want to pick the wallpapers on my PC(Of course, it's a excues.)
 
 ####Next Step####
 
-* Seperate R18 images
-* Seperate images By Girls Name
+* Seperate R18 images (Done.)
+* Seperate images By Girls Name (Abort)
+* Only fetch the newest update wallpapers.
+* Build a simple GUI.

@@ -6,11 +6,28 @@ import os.path
 import Queue
 
 myQueue = Queue.Queue(0)
-threadWorker = 15
+threadWorker = 10
 ACGHost = "acg.sugling.in"
 iPhone5URLPath = '/_uploadfiles/iphone5/640/'
 ReqeustHeaders = {"User-Agent": "ACGArt/4.4.11 CFNetwork/672.1.15 Darwin/14.0.0", "Accept":"*/*"}
 SaveDiskPath = 'D:\\ACGART\\'
+SaveHImageDiskPath = 'D:\\ACGART\\H\\'
+under18ImageList = []
+
+
+def fetchUnder18ImageList():
+	conn = httplib.HTTPConnection(ACGHost)
+	conn.request("GET","/json_daily.php?device=iphone5&pro=yes&user=yes&sexyfilter=yes&version=m.4.4.11", headers=ReqeustHeaders)
+	r1 = conn.getresponse()
+	print "Under18ImageList Response:", r1.status, r1.reason
+	data1 = r1.read()
+	print "From Http GET Data Length:",len(data1)
+	s=json.loads(data1)
+	datas = s['data']
+	for data in datas:
+		under18ImageList.extend(data["imgs"])
+	print "Under18ImageList count:", len(under18ImageList)
+
 
 def fetchImageList():
 	conn = httplib.HTTPConnection(ACGHost)
@@ -32,7 +49,6 @@ def fetchImageList():
 	# print "Data", fileData
 	fileData = data1
 	s=json.loads(fileData)
-	# print s.keys()
 	datas = s['data']
 	# print "IMAGE DAYS Data length :",len(datas);
 	# print datas[0]
@@ -42,23 +58,32 @@ def fetchImageList():
 	# allImgs.extend(datas[1]["imgs"])
 	for data in datas:
 		allImgs.extend(data["imgs"])
-	print "DonwLoad allImgs is:", len(allImgs)
+	print "AllImages count:", len(allImgs)
 	return allImgs
 
 def checkDiskPath():
 	if not os.path.isdir(SaveDiskPath):
 		print SaveDiskPath , "Not Exist"
 		os.mkdir(SaveDiskPath)
-
-
+	if not os.path.isdir(SaveHImageDiskPath):
+		print SaveHImageDiskPath, "Not Exist"
+		os.mkdir(SaveHImageDiskPath)
 
 def downjpg(FileName):
 	savePath = FileName;
-	savePath = SaveDiskPath +FileName
+	isHImage = True
+	if FileName in under18ImageList:
+		isHImage = False
+	print "DownLoad", FileName, "isH", isHImage
+
+	if isHImage:
+		savePath = SaveHImageDiskPath +FileName
+	else:
+		savePath = SaveDiskPath +FileName
+
 	if os.path.isfile(savePath):
 		print FileName, "Exist"
 	else:
-		print "DonwLoad", FileName
 		inConn = httplib.HTTPConnection(ACGHost)
 		inConn.request("GET",iPhone5URLPath+FileName, headers=ReqeustHeaders)
 		imageRes = inConn.getresponse()
@@ -75,21 +100,15 @@ class MyDownloadThread(threading.Thread):
 		while self._jobq.qsize()>0:
 			job = self._jobq.get()
 			downjpg(job)
-		# while True:
-		# 	if self._jobq.qsize()>0:
-		# 		job = self._jobq.get()
-		# 		print "DownLoad ", job
-		# 		downjpg(job,job)
-		# 	else:
-		# 		break 
-
 
 if __name__ == '__main__':
 	print "begin...."
 	allImgs = fetchImageList()
+	fetchUnder18ImageList();
 	checkDiskPath()
 	for i in allImgs:
 		myQueue.put(i)
 	print "job myQueue size ", myQueue.qsize()
 	for x in range(threadWorker):
 		MyDownloadThread(myQueue).start()
+
