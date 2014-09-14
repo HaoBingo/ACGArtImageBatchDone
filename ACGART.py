@@ -4,13 +4,14 @@ import json
 import threading
 import os.path
 import Queue
+import platform
 
 myQueue = Queue.Queue(0)
 threadWorker = 15
-ACGHost = "acg.sugling.in"
+ACGHost = 'acg.sugling.in'
 iPhone5URLPath = '/_uploadfiles/iphone5/640/'
 ReqeustHeaders = {"User-Agent": "ACGArt/4.4.11 CFNetwork/672.1.15 Darwin/14.0.0", "Accept":"*/*"}
-SaveDiskPath = 'D:\\ACGART\\'
+SaveDiskPath = ''
 
 def fetchImageList():
 	conn = httplib.HTTPConnection(ACGHost)
@@ -42,8 +43,19 @@ def fetchImageList():
 	# allImgs.extend(datas[1]["imgs"])
 	for data in datas:
 		allImgs.extend(data["imgs"])
-	print "DonwLoad allImgs is:", len(allImgs)
+	print "Download allImgs is:", len(allImgs)
 	return allImgs
+
+
+def checkPlatform():
+	system = platform.system() 
+	global SaveDiskPath
+	if platform == 'Windows':
+		SaveDiskPath = 'D:\\ACGART\\'
+	else:
+		SaveDiskPath = './ACGART/'
+	print "System: %s,Save images to %s" % (system, SaveDiskPath)
+
 
 def checkDiskPath():
 	if not os.path.isdir(SaveDiskPath):
@@ -58,7 +70,7 @@ def downjpg(FileName):
 	if os.path.isfile(savePath):
 		print FileName, "Exist"
 	else:
-		print "DonwLoad", FileName
+		print "Download", FileName
 		inConn = httplib.HTTPConnection(ACGHost)
 		inConn.request("GET",iPhone5URLPath+FileName, headers=ReqeustHeaders)
 		imageRes = inConn.getresponse()
@@ -87,6 +99,7 @@ class MyDownloadThread(threading.Thread):
 if __name__ == '__main__':
 	print "begin...."
 	allImgs = fetchImageList()
+	checkPlatform()
 	checkDiskPath()
 	for i in allImgs:
 		myQueue.put(i)
