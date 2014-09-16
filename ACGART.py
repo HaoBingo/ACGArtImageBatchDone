@@ -115,6 +115,8 @@ class MyDownloadThread(threading.Thread):
 		while self._jobq.qsize()>0:
 			job = self._jobq.get()
 			downjpg(job)
+			if self._jobq.qsize() == 1:
+				print 'Download complete, you got all pictures!（´∀｀*) '
 
 if __name__ == '__main__':
 	print "begin...."
@@ -126,5 +128,4 @@ if __name__ == '__main__':
 	print "job myQueue size ", myQueue.qsize()
 	for x in range(threadWorker):
 		MyDownloadThread(myQueue).start()
-	# checkPlatformAndSavePath()
 
