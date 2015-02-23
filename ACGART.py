@@ -10,7 +10,7 @@ myQueue = Queue.Queue(0)
 threadWorker = 10
 ACGHost = "acg.sugling.in"
 iPhone5URLPath = '/_uploadfiles/iphone5/640/'
-ReqeustHeaders = {"User-Agent": "ACGArt/4.4.11 CFNetwork/672.1.15 Darwin/14.0.0", "Accept":"*/*"}
+ReqeustHeaders = {"User-Agent": "ACGArt/4.5.0.1 CFNetwork/711.1.16 Darwin/14.0.0", "Accept":"*/*"}
 SaveDiskPath = ''
 SaveHImageDiskPath = ''
 under18ImageList = []
@@ -18,7 +18,7 @@ under18ImageList = []
 
 def fetchUnder18ImageList():
 	conn = httplib.HTTPConnection(ACGHost)
-	conn.request("GET","/json_daily.php?device=iphone5&pro=yes&user=yes&sexyfilter=yes&version=m.4.4.11", headers=ReqeustHeaders)
+	conn.request("GET","/json_daily.php?device=iphone5&pro=yes&user=yes&sexyfilter=yes&version=c.4.5", headers=ReqeustHeaders)
 	r1 = conn.getresponse()
 	print "Under18ImageList Response:", r1.status, r1.reason
 	data1 = r1.read()
@@ -31,7 +31,7 @@ def fetchUnder18ImageList():
 
 def fetchImageList():
 	conn = httplib.HTTPConnection(ACGHost)
-	conn.request("GET","/json_daily.php?device=iphone5&pro=yes&user=yes&sexyfilter=no&version=m.4.4.11", headers=ReqeustHeaders)
+	conn.request("GET","/json_daily.php?device=iphone5&pro=yes&user=yes&sexyfilter=no&version=c.4.5", headers=ReqeustHeaders)
 	r1 = conn.getresponse()
 	print "List Response:", r1.status, r1.reason
 	data1 = r1.read()
