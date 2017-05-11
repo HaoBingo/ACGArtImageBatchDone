@@ -1,18 +1,36 @@
-ACGArtImageBatchDone
+﻿
+# 绅士三剑客爬虫
 ====================
 
-iOS APP Name:ACG ART
+iOS App Name：
 
-[AppStore Link](https://itunes.apple.com/cn/app/acg-art-er-ci-yuan-dong-man/id577006740?mt=8)
+ACT Art
+[AppStore Link](https://itunes.apple.com/cn/app/?mt=8)
 
-###Adult only###
+Artibee
+[AppStore Link](https://itunes.apple.com/cn/app/artibee-二次元动漫美女壁纸杂志/id1190202850?mt=8)
 
-I just want to pick the wallpapers on my PC(Of course, it's a excues.)
+Beauty
+[AppStore Link](https://itunes.apple.com/cn/app/the-beauty-美伦壁纸写真杂志/id1190341460?mt=8)
 
 
-####Next Step####
+##usage:
+```
+usage: script.py [-h] [-f FLAG] token
 
-* Seperate R18 images (Done.)
-* Seperate images By Girls Name (Abort)
-* Only fetch the newest update wallpapers.
-* Build a simple GUI.
+positional arguments:
+  token                 token for scrapy, eg: 9132210801044103780693
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f FLAG, --flag FLAG  1 or 0,only download H imgs,Deafult false
+
+```
+
+###Example
+```
+python Artibee.py 9132210801044105040315
+python Beauty.py 9132210801044103780693 -f 1
+```
+
+### forked from [nomemo/ACGArtImageBatchDone](https://github.com/nomemo/ACGArtImageBatchDone)
