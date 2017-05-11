@@ -154,7 +154,7 @@ class MyDownloadThread(threading.Thread):
 			job = self._jobq.get()
 			downjpg(job)
 			if self._jobq.qsize() == 1:
-                print("Download complete, you got all pictures!（´∀｀*) ")
+				print("Download complete, you got all pictures!（´∀｀*) ")
 
 
 def optimizeImg(File):
