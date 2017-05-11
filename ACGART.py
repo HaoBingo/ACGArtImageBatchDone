@@ -12,13 +12,13 @@ myQueue = Queue.Queue(0)
 threadWorker = 6
 ACGHost = "beauty.xukeliapp.work"
 iPhone5URLPath = "/_uploadfiles/iphone5/640/"
-ReqeustHeaders = {"User-Agent": "NewBeautyFree/1.2.2 (iPhone; iOS 10.3.1; Scale/2.00)", "Cookie":"__cfduid=d86602b13317745b45fc082a7f25cc1571494310830"}
+ReqeustHeaders = {"User-Agent": "NewBeautyFree/1.2.2 (iPhone; iOS 10.3.1; Scale/2.00)"}
 SaveDiskPath = ""
 SaveHImageDiskPath = ""
 under18ImageList = []
 
-
-
+# defalut download all imgs
+flag = 0
 
 
 def fetchUnder18ImageList(token):
@@ -28,15 +28,15 @@ def fetchUnder18ImageList(token):
         conn.request("GET","/json_daily.php?device=iphone5&page={}&version=a.1.2.2&token={}000000000000".format(index,token[:10]), headers=ReqeustHeaders)
         r1 = conn.getresponse()
         print "List Page: {}".format(index)
-        print "Under18ImageList Response:", r1.status, r1.reason
+        print "Under18ImageList Response: {} {}".format(r1.status, r1.reason)
         data1 = r1.read()
-        print "From Http GET Data Length:",len(data1)
+        print "From Http GET Data Length: {}".format(len(data1))
         s=json.loads(data1)
         datas = s['data']
         if(len(datas) == 0 ):
             print "+-------------------------------+"
             print "Total Under18Image Pages: {}".format(index-1)
-            print "Under18ImageList count:", len(under18ImageList)
+            print "Under18ImageList count: {}".format(len(under18ImageList))
             print "+-------------------------------+"
             break
         for data in datas:
@@ -55,9 +55,9 @@ def fetchImageList(token):
         conn.request("GET","/json_daily.php?device=iphone5&page={}&version=a.1.2.2&token={}".format(index,token), headers=ReqeustHeaders)
         r1 = conn.getresponse()
         print "List Page: {}".format(index)
-        print "List Response:", r1.status, r1.reason
+        print "List Response: {} {}".format(r1.status, r1.reason)
         data1 = r1.read()
-        print "From Http GET Data Length:",len(data1)
+        print "From Http GET Data Length: {}".format(len(data1))
         
         fileData = data1
         s=json.loads(fileData)
@@ -66,7 +66,7 @@ def fetchImageList(token):
         if(len(datas) == 0 ):
             print "+----------------------------+"
             print "AllPages count: {}".format(index-1)
-            print "AllImages count:", len(allImgs)
+            print "AllImages count: {}".format(len(allImgs))
             print "+----------------------------+"
             return allImgs
         
@@ -78,17 +78,16 @@ def fetchImageList(token):
 	
 
 
-def checkPlatformAndSavePath():
+def checkSavePath():
     system = platform.system() 
     global SaveDiskPath
     global SaveHImageDiskPath
-    if system == 'Windows':
-        SaveDiskPath = '\\ACGART\\'
-        SaveHImageDiskPath = '\\ACGART\\H\\'
-    else:
-        SaveDiskPath = './ACGART/'
-        SaveHImageDiskPath = './ACGART/H/'
-        
+    
+    abspath = os.path.abspath('.')
+    SaveDiskPath = os.path.join(abspath,'ACGART')
+    SaveHImageDiskPath = os.path.join(SaveDiskPath,'H')
+    
+      
     print "System: %s,Save images to %s, H images to %s" % (system, SaveDiskPath, SaveHImageDiskPath)
     if not os.path.isdir(SaveDiskPath):
         print SaveDiskPath , "Not Exist"
@@ -99,6 +98,7 @@ def checkPlatformAndSavePath():
 
 
 def downjpg(FileName,retries=3):
+    global flag
     savePath = FileName;
     isHImage = True
     # 判断H图，默认都是H图
@@ -107,11 +107,17 @@ def downjpg(FileName,retries=3):
     print "DownLoad", FileName, "isH", isHImage
     
     if isHImage:
-        savePath = SaveHImageDiskPath +FileName
+        #savePath = SaveHImageDiskPath +FileName
+        savePath = os.path.join(SaveHImageDiskPath,FileName)
         print 'H image save path is :', savePath
     else:
-        savePath = SaveDiskPath +FileName
-        print 'image save path is :', savePath
+        if flag != 1:
+            
+            #savePath = SaveDiskPath +FileName
+            savePath = os.path.join(SaveDiskPath,FileName)
+            print 'image save path is :', savePath
+        else:
+            return
         
     if os.path.isfile(savePath):
         print FileName, "Exist"
@@ -158,20 +164,23 @@ class MyDownloadThread(threading.Thread):
 def optimizeImg(File):
     system = platform.system() 
     script = os.path.join(os.path.abspath('.'),'pingo.exe')
-    if (system == 'Windows' and os.path.isfile(savePath)):
+    if (system == 'Windows' and os.path.isfile(script)):
         os.system('{} -s5 {}'.format(script,File))
     else:
         pass
 
 if __name__ == '__main__':
     print "begin...."
-    
-    global token
+    global flag
+
     parser = argparse.ArgumentParser()
     parser.add_argument('token',help="token for scrapy, eg: 9132210801044103780693")
+    parser.add_argument('-f','--flag',help="1 or 0,only download H imgs,Deafult false",default = 0,type=int)
     args = parser.parse_args()
     token = args.token
-    #print token
+    flag = args.flag
+
+    print flag
     
 	
     
@@ -179,7 +188,7 @@ if __name__ == '__main__':
     
     fetchUnder18ImageList(token)
     
-    checkPlatformAndSavePath()
+    checkSavePath()
     for i in allImgs:
     	myQueue.put(i)
     print "job myQueue size ", myQueue.qsize()
