@@ -18,6 +18,7 @@ SaveHImageDiskPath = ""
 under18ImageList = []
 
 # defalut download all imgs
+global flag
 flag = 0
 
 
@@ -107,13 +108,10 @@ def downjpg(FileName,retries=3):
     print "DownLoad", FileName, "isH", isHImage
     
     if isHImage:
-        #savePath = SaveHImageDiskPath +FileName
         savePath = os.path.join(SaveHImageDiskPath,FileName)
         print 'H image save path is :', savePath
     else:
         if flag != 1:
-            
-            #savePath = SaveDiskPath +FileName
             savePath = os.path.join(SaveDiskPath,FileName)
             print 'image save path is :', savePath
         else:
@@ -171,7 +169,7 @@ def optimizeImg(File):
 
 if __name__ == '__main__':
     print "begin...."
-    global flag
+    #global flag
 
     parser = argparse.ArgumentParser()
     parser.add_argument('token',help="token for scrapy, eg: 9132210801044103780693")
@@ -180,7 +178,8 @@ if __name__ == '__main__':
     token = args.token
     flag = args.flag
 
-    print flag
+    if flag == 1:
+        print "Only download H images !"
     
 	
     
