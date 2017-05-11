@@ -1,20 +1,23 @@
 ﻿
-# 绅士三剑客爬虫
+# 绅士图三贱客爬虫
 ====================
 
-iOS App Name：
+## iOS App Name：
 
-ACT Art
-[AppStore Link](https://itunes.apple.com/cn/app/?mt=8)
+* **ACT Art**
 
-Artibee
-[AppStore Link](https://itunes.apple.com/cn/app/artibee-二次元动漫美女壁纸杂志/id1190202850?mt=8)
+    [AppStore Link](https://itunes.apple.com/cn/app/?mt=8)
 
-Beauty
-[AppStore Link](https://itunes.apple.com/cn/app/the-beauty-美伦壁纸写真杂志/id1190341460?mt=8)
+* **Artibee**
+
+    [AppStore Link](https://itunes.apple.com/cn/app/artibee-二次元动漫美女壁纸杂志/id1190202850?mt=8)
+
+* **Beauty**
+
+    [AppStore Link](https://itunes.apple.com/cn/app/the-beauty-美伦壁纸写真杂志/id1190341460?mt=8)
 
 
-##usage:
+## usage:
 ```
 usage: script.py [-h] [-f FLAG] token
 
@@ -27,10 +30,12 @@ optional arguments:
 
 ```
 
-###Example
+### Example:
 ```
 python Artibee.py 9132210801044105040315
 python Beauty.py 9132210801044103780693 -f 1
 ```
 
-### forked from [nomemo/ACGArtImageBatchDone](https://github.com/nomemo/ACGArtImageBatchDone)
+### Forked from 
+
+[nomemo/ACGArtImageBatchDone](https://github.com/nomemo/ACGArtImageBatchDone)
