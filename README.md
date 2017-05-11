@@ -1,12 +1,9 @@
 ﻿
-# 绅士图三贱客爬虫
+# 绅士图爬虫
 
 
 ## iOS App Name：
 
-* **ACT Art**
-
-    [AppStore Link](https://itunes.apple.com/cn/app/?mt=8)
 
 * **Artibee**
 
@@ -35,6 +32,14 @@ optional arguments:
 python Artibee.py 9132210801044105040315
 python Beauty.py 9132210801044103780693 -f 1
 ```
+
+### Notice:
+
+token需要自行抓取，可以使用burpsuite等软件。
+
+在windows下，若pingo.exe在脚本同目录，则自动压缩优化图片。
+
+**PS:** 可能会占用一部分CPU资源
 
 ### Forked from 
 
