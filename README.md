@@ -1,6 +1,6 @@
 ﻿
 # 绅士图三贱客爬虫
-====================
+
 
 ## iOS App Name：
 
@@ -17,7 +17,7 @@
     [AppStore Link](https://itunes.apple.com/cn/app/the-beauty-美伦壁纸写真杂志/id1190341460?mt=8)
 
 
-## usage:
+## Usage:
 ```
 usage: script.py [-h] [-f FLAG] token
 
