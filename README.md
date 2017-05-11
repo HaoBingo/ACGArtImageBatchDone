@@ -35,11 +35,22 @@ python Beauty.py 9132210801044103780693 -f 1
 
 ### Notice:
 
-token需要自行抓取，可以使用burpsuite等软件。
+    token需要自行抓取，可以使用burpsuite等软件。
 
-在windows下，若pingo.exe在脚本同目录，则自动压缩优化图片。
+    在windows下，若pingo.exe在脚本同目录，则自动压缩优化图片。
 
 **PS:** 可能会占用一部分CPU资源
+
+### pingo
+
+>pingo, a fast image optimizer 
+
+[介绍传送门](https://css-ig.net/pingo)
+
+
+pingo is an experimental, fast Web PNG/JPG optimizer with visually lossless or lossy compression. it performs image reductions over iterations with a recursive multi-processing system
+
+
 
 ### Forked from 
 
