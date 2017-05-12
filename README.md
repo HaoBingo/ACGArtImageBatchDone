@@ -5,11 +5,11 @@
 ## iOS App Name：
 
 
-* **Artibee**
+* **Artibee** - 二次元动漫美女壁纸杂志
 
     [AppStore Link](https://itunes.apple.com/cn/app/artibee-二次元动漫美女壁纸杂志/id1190202850?mt=8)
 
-* **Beauty**
+* **Beauty** - 美伦壁纸写真杂志
 
     [AppStore Link](https://itunes.apple.com/cn/app/the-beauty-美伦壁纸写真杂志/id1190341460?mt=8)
 
@@ -48,7 +48,7 @@ python Beauty.py 9132210801044103780693 -f 1
 [介绍传送门](https://css-ig.net/pingo)
 
 
-pingo is an experimental, fast Web PNG/JPG optimizer with visually lossless or lossy compression. it performs image reductions over iterations with a recursive multi-processing system
+    pingo is an experimental, fast Web PNG/JPG optimizer with visually lossless or lossy compression. it performs image reductions over iterations with a recursive multi-processing system
 
 
 
