@@ -188,6 +188,3 @@ if __name__ == "__main__":
     print("job myQueue size {0}".format(myQueue.qsize()))
     for x in range(threadWorker):
         MyDownloadThread(myQueue).start()
-
-
-
