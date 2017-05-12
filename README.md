@@ -48,7 +48,7 @@ python Beauty.py 9132210801044103780693 -f 1
 [介绍传送门](https://css-ig.net/pingo)
 
 
-    pingo is an experimental, fast Web PNG/JPG optimizer with visually lossless or lossy compression. it performs image reductions over iterations with a recursive multi-processing system
+pingo is an experimental, fast Web PNG/JPG optimizer with visually lossless or lossy compression. it performs image reductions over iterations with a recursive multi-processing system
 
 
 
