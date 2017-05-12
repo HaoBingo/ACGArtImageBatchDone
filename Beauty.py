@@ -1,4 +1,5 @@
-# -*- coding: UTF-8 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import httplib
 import json
 import threading
@@ -146,15 +147,15 @@ def downjpg(FileName,retries=3):
 
 
 class MyDownloadThread(threading.Thread):
-	def __init__(self, input):
-		super(MyDownloadThread, self).__init__()
-		self._jobq = input
-	def run(self):
-		while self._jobq.qsize()>0:
-			job = self._jobq.get()
-			downjpg(job)
-			if self._jobq.qsize() == 1:
-				print("Download complete, you got all pictures!（´∀｀*) ")
+    def __init__(self, input):
+        super(MyDownloadThread, self).__init__()
+        self._jobq = input
+    def run(self):
+        while self._jobq.qsize()>0:
+            job = self._jobq.get()
+            downjpg(job)
+            if self._jobq.qsize() == 1:
+                print("Download complete, you got all pictures!（´∀｀*) ")
 
 
 def optimizeImg(File):
@@ -183,7 +184,7 @@ if __name__ == "__main__":
 
     checkSavePath()
     for i in allImgs:
-    	myQueue.put(i)
+        myQueue.put(i)
     print("job myQueue size {0}".format(myQueue.qsize()))
     for x in range(threadWorker):
-    	MyDownloadThread(myQueue).start()
+        MyDownloadThread(myQueue).start()
